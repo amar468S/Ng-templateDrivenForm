@@ -92,6 +92,7 @@
               [(ngModel)]="userForm.confirmPassword" #confirmPassword="ngModel" [ngClass]="{'is-invalid': confirmPassword.dirty && confirmPassword.invalid }" required />
             <div *ngIf="confirmPassword.dirty && confirmPassword.invalid" class="invalid-feedback">
                 <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+                <div *ngIf="confirmPassword.errors.mustMatch">Passwords must match</div>
             </div>
           </div>
       </div>

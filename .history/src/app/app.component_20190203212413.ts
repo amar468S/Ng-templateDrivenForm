@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserForm } from './UserForm';
 
 @Component({
@@ -15,7 +15,6 @@ export class AppComponent {
     }
 
     login(userForm) {
-      console.log(userForm.form.value);
-      this.userForm = new UserForm();
+      console.log(userForm.form);
     }
 }

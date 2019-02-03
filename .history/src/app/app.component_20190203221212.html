@@ -4,11 +4,11 @@
     </div>
     <br>
   <div class="jumbotron p-4">
-  <form #usrForm="ngForm" (ngSubmit)="login(usrForm)" novalidate>
+  <form #usrForm="ngForm" (ngSubmit)="login(usrForm)">
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Full Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" [ngClass]="(fullName.dirty && fullName.invalid) ? 'is-invalid':''" placeholder="Enter Full Name"
+            <input type="text" class="form-control" [ngClass]="{fullName.dirty && fullName.invalid ? 'is-invalid':''}" placeholder="Enter Full Name"
             name="fullname" [(ngModel)]="userForm.fullName" #fullName="ngModel" required>
             <small class="invalid-feedback">This field can't be empty</small>
           </div>
@@ -16,7 +16,7 @@
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Age</label>
           <div class="col-sm-10">
-            <input type="number" class="form-control" [ngClass]="age.dirty && age.invalid ? 'is-invalid':''" placeholder="Enter Age"
+            <input type="number" class="form-control" [ngClass]="{age.dirty && age.invalid ? 'is-invalid':''}" placeholder="Enter Age"
             name="age" [(ngModel)]="userForm.age" #age="ngModel" required>
             <small class="invalid-feedback">This field can't be empty</small>
           </div>
@@ -32,39 +32,36 @@
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Mobile</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" [ngClass]="mobile.dirty && mobile.invalid ? 'is-invalid':''" placeholder="Enter Mobile"
+            <input type="text" class="form-control" [[ngClass]="{cssClass: expression}"]placeholder="Enter Mobile"
             name="mobile" [(ngModel)]="userForm.mobile" #mobile="ngModel" required minlength="10">
             <div *ngIf="mobile.dirty && mobile.invalid">
-              <small class="invalid-feedback" *ngIf="mobile.errors.required">This field can't be empty</small>
-              <small class="invalid-feedback" *ngIf="mobile.errors.minlength">This field must contain minimum 10 characters</small>
+              <small class="form-text text-danger" *ngIf="mobile.errors.required">This field can't be empty</small>
+              <small class="form-text text-danger" *ngIf="mobile.errors.minlength">This field must contain minimum 10 characters</small>
             </div>
           </div>
       </div>
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Country</label>
           <div class="col-sm-10">
-            <select class="form-control" name="country" [ngClass]="country.dirty && country.invalid ? 'is-invalid':''"
-              [(ngModel)]="userForm.country" #country="ngModel" required>
+            <select class="form-control" name="country" [(ngModel)]="userForm.country" #country="ngModel" required>
               <option value="">Select Country</option>
               <option value="India">India</option>
               <option value="Sri Lanka">Sri Lanka</option>
               <option value="Bangladesh">Bangladesh</option>
               <option value="Nepal">Nepal</option>
             </select>
-            <small class="invalid-feedback">Please select country</small>
+            <small class="form-text text-danger" *ngIf="country.dirty && country.invalid">This field can't be empty</small>
           </div>
       </div>
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Gender</label>
           <div class="col-sm-10">
             <div class="form-check">
-              <input class="form-check-input" type="radio" 
-                name="gender" value="Male" [checked]="(userForm.gender=='Male')?'checked':''">
+              <input class="form-check-input" type="radio" name="gender" value="Male" [checked]="(userForm.gender=='Male')?'checked':''">
               <label class="form-check-label">Male</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" 
-                name="gender" value="Female" [checked]="(userForm.gender=='Female')?'checked':''">
+                <input class="form-check-input" type="radio" name="gender" value="Female" [checked]="(userForm.gender=='Female')?'checked':''">
                 <label class="form-check-label">Female</label>
             </div>
           </div>
@@ -72,37 +69,18 @@
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Username</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" [ngClass]="username.dirty && username.invalid ? 'is-invalid':''" placeholder="Enter Username" 
+            <input type="text" class="form-control" placeholder="Enter Username" 
             name="username" [(ngModel)]="userForm.username" #username="ngModel" required>
-            <small class="invalid-feedback">This field can't be empty</small>
+            <small class="form-text text-danger" *ngIf="username.dirty && username.invalid">This field can't be empty</small>
           </div>
       </div>
       <div class="form-group row">
           <label class="col-sm-2 col-form-label">Password</label>
           <div class="col-sm-10">
-            <input type="password" class="form-control" [ngClass]="password.dirty && password.invalid ? 'is-invalid':''" placeholder="Enter Password"
+            <input type="password" class="form-control" placeholder="Enter Password"
             name="password" [(ngModel)]="userForm.password" #password="ngModel">
-            <small class="invalid-feedback">This field can't be empty</small>
+            <small class="form-text text-danger" *ngIf="password.dirty && password.invalid">This field can't be empty</small>
           </div>
-      </div>
-      <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Confirm Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" name="confirmPassword" placeholder="Re-enter above password" 
-              [(ngModel)]="userForm.confirmPassword" #confirmPassword="ngModel" [ngClass]="{'is-invalid': confirmPassword.dirty && confirmPassword.invalid }" required />
-            <div *ngIf="confirmPassword.dirty && confirmPassword.invalid" class="invalid-feedback">
-                <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
-            </div>
-          </div>
-      </div>
-      <div class="form-group row">
-        <label for="" class="col-sm-2 col-form-label">Upload File</label>
-        <div class="input-group col-sm-10">
-          <div class="custom-file">
-            <input type="file" class="custom-file-input">
-            <label class="custom-file-label">Choose File</label>
-          </div>
-        </div>
       </div>
       <div class="form-group row">
           <label class="col-sm-5 col-form-label"></label>

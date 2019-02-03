@@ -9,6 +9,7 @@ import { UserForm } from './UserForm';
 export class AppComponent {
   
     userForm:UserForm
+    @Input('mustMatch') mustMatch: string[] = [];
 
     constructor(){
       this.userForm = new UserForm();
